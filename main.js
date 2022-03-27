@@ -1,49 +1,47 @@
 const electron = require('electron')
+const url = require('url')
+const path = require('path')
 
-// Module for application life.
-const app = electron.app
-// Module to create native browser window.
-const BrowserWindow = electron.BrowserWindow
 
-// Keep a global reference of the window object
-// If you don't, the window will be closed automatically
+const{app, BrowserWindow} = electron;
 
-let mainWindow
 
-function createWindow()
-{
-    // Create the browser window
-    mainWindow = new BrowserWindow({width: 800, height: 600})
-
-    // and load the index.html of the app.
-    mainWindow.loadURL(`file://${__dirname}/index.html`)
-
-    // Open dev tools
-    mainWindow.webContents.openDevTools()
-
-    // Emmited when windows is closed
-    mainWindow.on('closed', function()
+const createWindow = () => {
+  const win = new BrowserWindow({
+    width:800,
+    height:600,
+    webPreferences: 
     {
-        // Dereference the window object
-        mainWindow = null
-    })
-}
-
-// Quit when all windows are closed.
-app.on('window-all-closed', function () {
-    // On OS X it is common for applications and their menu bar
-    // to stay active until the user quits explicitly with Cmd + Q
-    if (process.platform !== 'darwin') {
-      app.quit()
+      nodeIntegration: true, // to allow require
+      contextIsolation: false, // allow use with Electron 12+
+      // Join the current dir with preload script
+      preload: path.join(__dirname, 'preload.js')
     }
   })
+  win.loadFile('index.html')
+}
+
+// Allow live code updates
+require('electron-reload')(__dirname, {
+  electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
+})
+
+// When electron is ready
+app.whenReady().then(() => {
+  createWindow()
   
 
-app.on('activate', function () {
-// On OS X it's common to re-create a window in the app when the
-// dock icon is clicked and there are no other windows open.
-if (mainWindow === null) {
-    createWindow()
-}
+  // For MAC support
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length==0) createWindow
+  })
 })
+
+// Listen for window closed on Windows and Linux
+app.on('window-all-closed', () => {
+  if (process.platform != 'darwin') app.quit()
+})
+
+
+
 
