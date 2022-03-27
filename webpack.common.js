@@ -44,9 +44,5 @@ module.exports = {
   output: {
     filename: 'app.js',
     path: path.resolve(__dirname, 'build', 'js'),
-  },
-  externals:
-  {
-    "pouchdb": "require('pouchdb')"
   }
 };
