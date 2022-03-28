@@ -27,7 +27,7 @@ function App() {
         >
           so sad.
         </a>
-        <p>Available devices:</p>
+        <p>No available devices.</p>
       </header>
     </div>
   );
