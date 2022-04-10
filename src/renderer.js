@@ -1,4 +1,3 @@
-
 const btn = document.getElementById('btn')
 const filePathElement = document.getElementById('filePath')
 

@@ -2,14 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 
 
-const btn = document.getElementById('setter')
-const filePathElement = document.getElementById('cool')
-
-btn.addEventListener('click', async () => {
-    filePathElement.textContent = "cool"
-})
-
 function App() {
+
   return (
     <div className="App">
       <header id="title"></header>
@@ -27,10 +21,14 @@ function App() {
         >
           so sad.
         </a>
+        
         <p>No available devices.</p>
+
       </header>
     </div>
   );
 }
+
+
 
 export default App;
