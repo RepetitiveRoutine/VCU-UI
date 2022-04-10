@@ -1,8 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
-
+import * as React from 'react';
+import Stack from '@mui/material/Stack'; 
+import Button from '@mui/material/Button';
+import BasicButton from './basicButton';
 
 function App() {
+  /*
+  const btn = document.getElementById('btn1')
+  const filePathElement = document.getElementById('filePath1')
+
+  btn?.addEventListener('click', async () => {
+    const filePath = await window.electronAPI.openFile()
+    filePathElement.innerText = filePath
+    console.log("hello?")
+  })*/
 
   return (
     <div className="App">
@@ -21,14 +33,14 @@ function App() {
         >
           so sad.
         </a>
-        
+        <button type="button" id="btn1">Open a File</button>
+        File path: <strong id="filePath1"></strong>
+        <BasicButton></BasicButton>
         <p>No available devices.</p>
-
       </header>
     </div>
   );
 }
-
 
 
 export default App;

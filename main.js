@@ -1,7 +1,7 @@
 const path = require("path");
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const isDev = require("electron-is-dev");
-
+const { SerialPort } = require('serialport')
 let installExtension, REACT_DEVELOPER_TOOLS
 
 if (isDev) {
@@ -44,13 +44,23 @@ async function createWindow() {
 
 // IPC Two Way
 async function handleFileOpen()
-{
-  const { canceled, filePaths } = await dialog.showOpenDialog()
-  if (canceled) {
-      return
-  } else {
-    return filePaths[0]
-  }
+{ 
+  ports = await listSerialPorts()
+  console.log("The ports " + ports)
+  return ports
+}
+
+async function listSerialPorts() {
+  portamento = await SerialPort.list().then((ports, err) => {
+    
+    if (ports.length === 0) {
+      console.log("No ports :/")
+    }
+    console.log("Returning ports")
+    return ports
+  })
+  console.log(portamento)
+  return portamento
 }
 
 // This method will be called when Electron has finished
@@ -58,6 +68,8 @@ async function handleFileOpen()
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // IPC Two-way
+  listSerialPorts()
+  
   ipcMain.handle('dialog:openFile', handleFileOpen)
   createWindow();
   if (isDev) {
