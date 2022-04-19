@@ -4,10 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { HashRouter, HashRouter as Router, Route } from "react-router-dom";
+
+/*
+(default) slash is the homepage
+noslash is the serial page
+hashbang /#!/  /#!/planets
+*/
+
 ReactDOM.render(
-  <React.StrictMode>
+  <HashRouter hashType="hashbang">
     <App />
-  </React.StrictMode>,
+  </HashRouter>,
   document.getElementById('root')
 );
 
