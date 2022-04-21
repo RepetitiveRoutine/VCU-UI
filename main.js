@@ -1,8 +1,10 @@
 const path = require("path");
 const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const isDev = require("electron-is-dev");
-const { SerialPort } = require('serialport')
+const { SerialPort, ReadlineParser } = require('serialport')
 let installExtension, REACT_DEVELOPER_TOOLS
+
+const stm32 = null;
 
 if (isDev) {
   const devTools = require("electron-devtools-installer");
@@ -63,14 +65,42 @@ async function listSerialPorts() {
   return portamento
 }
 
+
+async function initialisePort()
+{
+  stm32 = new SerialPort({
+    autoOpen: false,
+    path: '\\\\.\\COM3',
+    baudRate: 115200,
+    parity: 'none',
+    stopBits: 1,
+    dataBits: 8
+  })
+
+  this.port.open(function (err) {
+    if (err) {
+      console.log('Error opening port: ', err.message)
+    }
+  });
+}
+
+async function openPort()
+{ 
+  await initialisePort()
+  return 0
+}
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   // IPC Two-way
   listSerialPorts()
-  
+  openPort()
   ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle('dialog:openPort', openPort)
+
   createWindow();
   if (isDev) {
     installExtension(REACT_DEVELOPER_TOOLS)

@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-import { HashRouter, HashRouter as Router, Route } from "react-router-dom";
-
+import {HashRouter, Routes, Route} from "react-router-dom";
+import PortView from "./pages/PortView";
 /*
 (default) slash is the homepage
 noslash is the serial page
@@ -13,9 +13,12 @@ hashbang /#!/  /#!/planets
 */
 
 ReactDOM.render(
-  <HashRouter hashType="hashbang">
-    <App />
-  </HashRouter>,
+    <HashRouter>
+      <Routes>
+        <Route path="/" element={<App />}/>
+        <Route path="ports" element= {<PortView />}/>
+      </Routes>
+    </HashRouter>,
   document.getElementById('root')
 );
 
