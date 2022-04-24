@@ -4,7 +4,7 @@ const isDev = require("electron-is-dev");
 const { SerialPort, ReadlineParser } = require('serialport')
 let installExtension, REACT_DEVELOPER_TOOLS
 
-const stm32 = null;
+var port = null;
 
 if (isDev) {
   const devTools = require("electron-devtools-installer");
@@ -54,21 +54,19 @@ async function handleFileOpen()
 
 async function listSerialPorts() {
   portamento = await SerialPort.list().then((ports, err) => {
-    
     if (ports.length === 0) {
       console.log("No ports :/")
     }
     console.log("Returning ports")
     return ports
   })
-  console.log(portamento)
   return portamento
 }
 
 
 async function initialisePort()
 {
-  stm32 = new SerialPort({
+  port = new SerialPort({
     autoOpen: false,
     path: '\\\\.\\COM3',
     baudRate: 115200,
@@ -77,17 +75,25 @@ async function initialisePort()
     dataBits: 8
   })
 
-  this.port.open(function (err) {
+  port.open(function (err) {
     if (err) {
       console.log('Error opening port: ', err.message)
     }
   });
+
 }
 
-async function openPort()
+async function openPort(isopen)
 { 
-  await initialisePort()
-  return 0
+  if(isopen == false)
+  {
+    await initialisePort()
+  }
+  
+  var parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }))
+  
+  console.log(parser.ReadlineParser)
+  
 }
 
 
@@ -97,7 +103,7 @@ async function openPort()
 app.whenReady().then(() => {
   // IPC Two-way
   listSerialPorts()
-  openPort()
+  openPort(false)
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('dialog:openPort', openPort)
 

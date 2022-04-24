@@ -9,8 +9,9 @@ function PortView() {
 
   //create an async function that calls the electron api OpenPort
 	async function openPort(){
-			const port = await window.electronAPI.openPort()
-
+			var porty = await window.electronAPI.openPort(true)
+      setPort()
+      console.log()
 	}
 
   return (
