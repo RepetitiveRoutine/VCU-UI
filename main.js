@@ -4,7 +4,8 @@ const isDev = require("electron-is-dev");
 const { SerialPort, ReadlineParser } = require('serialport')
 let installExtension, REACT_DEVELOPER_TOOLS
 
-var port = null;
+const port = new SerialPort({ path: 'COM3', baudRate: 115200 })
+var message = ""
 
 if (isDev) {
   const devTools = require("electron-devtools-installer");
@@ -85,17 +86,26 @@ async function initialisePort()
 
 async function openPort(isopen)
 { 
+  console.log("Returning port")
   if(isopen == false)
   {
     await initialisePort()
   }
-  
-  var parser = port.pipe(new ReadlineParser({ delimiter: '\r\n' }))
-  
-  console.log(parser.ReadlineParser)
-  
+  return port
 }
 
+async function openCom()
+{
+  console.log("Com is open")
+  const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }))
+  parser.on('data', logfun)
+  return message
+}
+
+function logfun(msg)
+{
+  message = msg
+}
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -103,9 +113,10 @@ async function openPort(isopen)
 app.whenReady().then(() => {
   // IPC Two-way
   listSerialPorts()
-  openPort(false)
+  //openPort(false)
   ipcMain.handle('dialog:openFile', handleFileOpen)
   ipcMain.handle('dialog:openPort', openPort)
+  ipcMain.handle('dialog:openCom', openCom)
 
   createWindow();
   if (isDev) {

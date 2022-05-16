@@ -3,14 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import {HashRouter, Routes, Route} from "react-router-dom";
 import PortView from "./pages/PortView";
-/*
-(default) slash is the homepage
-noslash is the serial page
-hashbang /#!/  /#!/planets
-*/
+
 
 ReactDOM.render(
     <HashRouter>
