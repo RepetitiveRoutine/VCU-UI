@@ -33,9 +33,8 @@ function PortView() {
   const [port, setPort] = React.useState(" ");
   //create an async function that calls the electron api OpenPort
 	async function openPort(){
-			var porty = await window.electronAPI.openCom()
-      console.log(porty)
-      setPort(porty)
+			await window.electronAPI.sendMessage()
+      console.log("requesting to send tpcal")
   }
 
   useInterval(async () => {
@@ -47,7 +46,7 @@ function PortView() {
   return (
     <div>
     <Box>
-			<Button variant="contained" color="primary" onClick={() => {openPort();} }>Open Port</Button>
+			<Button variant="contained" color="primary" onClick={() => {openPort();} }>tpcal</Button>
       <p>{port}</p>	
     </Box>
     </div>

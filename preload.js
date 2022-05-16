@@ -3,6 +3,7 @@ const { contextBridge, ipcRenderer } = require('electron')
 contextBridge.exposeInMainWorld('electronAPI', {
   openFile: () => ipcRenderer.invoke('dialog:openFile'),
   openPort: () => ipcRenderer.invoke('dialog:openPort'),
-  openCom: () =>  ipcRenderer.invoke('dialog:openCom')
+  openCom: () =>  ipcRenderer.invoke('dialog:openCom'),
+  sendMessage: () => ipcRenderer.invoke('dialog:sendMessage')
 })
 

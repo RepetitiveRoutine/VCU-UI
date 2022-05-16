@@ -107,6 +107,12 @@ function logfun(msg)
   message = msg
 }
 
+function sendMessage()
+{
+  port.write("tpcal")
+  console.log("tpcal sent")
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -115,6 +121,7 @@ app.whenReady().then(() => {
   listSerialPorts()
   //openPort(false)
   ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle('dialog:sendMessage', sendMessage)
   ipcMain.handle('dialog:openPort', openPort)
   ipcMain.handle('dialog:openCom', openCom)
 
