@@ -24,16 +24,16 @@ function App() {
         <Box
       component="form"
       sx={{
-        '& > :not(style)': { m: 1, width: '10ch' },
+        '& > :not(style)': { m: 1, width: '7.5ch'},
       }}
       noValidate
       autoComplete="off"
     >
-      
-        <TextField style={{color: 'green'}} label="Baudrate" color="" focused />
-        <TextField label="Stop Bits" color="" focused />
-        <TextField label="Stop Bits" color="" focused />
 
+        <TextField sx={{input: {color: "white",height:'2ch'}}} label="Baudrate" color="" focused />
+        <TextField sx={{input: {color: "white",height:'2ch'}}} label="stopBits" color="" focused />
+        <TextField sx={{input: {color: "white",height:'2ch'}}} label="dataBits" color="" focused />
+        <TextField sx={{input: {color: "white",height:'2ch'}}} label="parity" color="" focused />
         </Box>
 
 

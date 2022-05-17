@@ -27,7 +27,7 @@ export default function DropdownCOM() {
 
   return (
     <div>
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+    <FormControl variant="standard" sx={{ m: 1, minWidth: 120, color:"white" }}>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
@@ -39,7 +39,6 @@ export default function DropdownCOM() {
         </Select>
       </FormControl>
       <FormControl variant="filled" sx={{ m: 1, minWidth: 30 }}>
-          <Button>Click Me</Button>
       </FormControl>
     </div>
   );
