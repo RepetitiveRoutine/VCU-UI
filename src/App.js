@@ -45,7 +45,7 @@ function App() {
          >
           
           
-          <Link to="/ports">Ports Baby</Link>
+          <Link to="/ports">Enter VCUI</Link>
         </nav>
       </header>
       

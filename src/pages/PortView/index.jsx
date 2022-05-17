@@ -4,7 +4,8 @@ import { Button } from "@mui/material";
 //import ApexChart from '../../components/serialList';
 import { useEffect, useRef } from "react";
 import { LineChart, Line } from 'recharts';
-import '@fontsource/roboto/300.css'
+//import '@fontsource/roboto/30.css'
+import Chart from '../../components/tpuGraph'
 
 function float2int(value) {
   return value | 0;
@@ -53,7 +54,7 @@ function PortView() {
       "TPS": float2int(parsedMsg[7])
     }
     setDataArray(dataStrFormat)
-  }, 1000) 
+  }, 100) 
 
   return (
     <div>
@@ -109,6 +110,7 @@ function PortView() {
           </Paper>
         </Box>
         </div>
+        
   );
 }
 
