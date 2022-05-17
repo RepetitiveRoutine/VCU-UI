@@ -96,9 +96,9 @@ async function openPort(isopen)
 
 async function openCom()
 {
-  console.log("Com is open")
   const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }))
   parser.on('data', logfun)
+  console.log(message)
   return message
 }
 

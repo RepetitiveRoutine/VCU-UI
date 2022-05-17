@@ -4,6 +4,8 @@ import * as React from 'react';
 import BasicButton from './components/basicButton';
 import DropdownCOM from './components/dropdownCOM';
 import {Link} from 'react-router-dom';
+import { Box, Typography, Paper, TextField } from "@mui/material";
+
 
 function App() {
   return (
@@ -16,13 +18,33 @@ function App() {
         </p>
         
         <BasicButton></BasicButton>
+        
         <DropdownCOM></DropdownCOM>
+
+        <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '10ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      
+        <TextField style={{color: 'green'}} label="Baudrate" color="" focused />
+        <TextField label="Stop Bits" color="" focused />
+        <TextField label="Stop Bits" color="" focused />
+
+        </Box>
+
+
         <nav
           style={{
             borderBottom: "solid 1px",
             paddingBottom: "1rem",
           }}
          >
+          
+          
           <Link to="/ports">Ports Baby</Link>
         </nav>
       </header>
