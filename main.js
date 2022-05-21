@@ -29,7 +29,6 @@ async function createWindow() {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     },
-    frame: false
   });
 
   // and load the index.html of the app.
@@ -47,7 +46,7 @@ async function createWindow() {
 }
 
 // IPC Two Way
-async function handleFileOpen()
+async function getPorts()
 { 
   ports = await listSerialPorts()
   console.log("The ports " + ports)
@@ -121,7 +120,7 @@ app.whenReady().then(() => {
   // IPC Two-way
   listSerialPorts()
   //openPort(false)
-  ipcMain.handle('dialog:openFile', handleFileOpen)
+  ipcMain.handle('dialog:getPorts', getPorts)
   ipcMain.handle('dialog:sendMessage', sendMessage)
   ipcMain.handle('dialog:openPort', openPort)
   ipcMain.handle('dialog:openCom', openCom)

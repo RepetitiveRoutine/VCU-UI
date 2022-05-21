@@ -7,23 +7,30 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 
 
-export default function DropdownCOM() {
-  const [age, setAge] = React.useState('');
+
+const DropdownCOM = (props) => {
+  const [selectedPort, setSelectedPort] = React.useState('');
+  const [portList, setPortList] = React.useState([]);
+  const [isLoaded, setLoaded] = React.useState(false);
+  const portArr = []
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setSelectedPort(event.target.value);
+    props.onChange(event.target.value);
   };
-  
-  const [ports, setPorts] = React.useState("");
-
+ 
   async function loadPorts(){
-    const filePath = await window.electronAPI.openFile()
-    setPorts(filePath[1].friendlyName)
-    console.log(filePath[1].friendlyName)
-    return "ok"
+    const ports = await window.electronAPI.getPorts()
+    ports.forEach(port => {portArr.push(port.friendlyName); console.log(port.friendlyName)});
+    setPortList(portArr)
   }
-  
-  loadPorts()
+
+  if(!isLoaded)
+  {
+    loadPorts()
+    setLoaded(true)
+  }
+  console.log(selectedPort)
 
   return (
     <div>
@@ -31,11 +38,19 @@ export default function DropdownCOM() {
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={age}
-          label="Age"
+          value={selectedPort}
+          label="Ports"
           onChange={handleChange}
+          sx={{backgroundColor:"white",  borderRadius: 1}}
         >
-          <MenuItem value={40}>{ports}</MenuItem>
+        {portList.map((name) => (
+            <MenuItem
+              key={name}
+              value={name}
+            >
+              {name}
+              </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <FormControl variant="filled" sx={{ m: 1, minWidth: 30 }}>
@@ -43,3 +58,5 @@ export default function DropdownCOM() {
     </div>
   );
 }
+
+export default DropdownCOM
