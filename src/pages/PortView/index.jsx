@@ -1,23 +1,22 @@
 import { Box, Typography, Paper } from "@mui/material";
 import * as React from 'react';
 import { Button } from "@mui/material";
-//import ApexChart from '../../components/serialList';
 import { useEffect, useRef } from "react";
-import { LineChart, Line } from 'recharts';
-//import '@fontsource/roboto/30.css'
-import Chart from '../../components/tpuGraph'
 
+// Convert the incoming sensor data
 function float2int(value) {
   return value | 0;
 }
 
 export function useInterval(callback, delay) {
+  
   const savedCallback = useRef()
 
   useEffect(() => {
     savedCallback.current = callback;
   }, [callback]);
 
+  // Use effect will poll SerialPort every delay in ms 
   useEffect(() => {
     function tick() {
       savedCallback.current();

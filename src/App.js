@@ -8,9 +8,8 @@ import { Box, Typography, Paper, Button, TextField } from "@mui/material";
 
 
 function App() {
-
+  // Port retrieved by Dropdown component from props
   const [port, setPort] = React.useState('')
-
   return (
     <div className="App">
       <header id="title"></header>
@@ -19,16 +18,13 @@ function App() {
         <p id="cool">
           Which port do u want?
         </p>
-        
         <DropdownCOM onChange={(value) => setPort(value)} />
         <Link to="/ports">
           <Button>Enter</Button>
         </Link>
-
       </header>
     </div>
   );
 }
-
 
 export default App;
