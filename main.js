@@ -63,7 +63,7 @@ async function listSerialPorts() {
     if (ports.length === 0) {
       console.log("No ports :/")
     }
-    console.log("Returning ports")
+    console.log(ports)
     return ports
   })
   return portamento

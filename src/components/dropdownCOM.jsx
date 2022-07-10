@@ -10,20 +10,41 @@ import Button from '@mui/material/Button';
 
 const DropdownCOM = (props) => {
   const [selectedPort, setSelectedPort] = React.useState('');
+  const [ports, setPorts] = React.useState([]);
   const [portList, setPortList] = React.useState([]);
+  const [manuList, setManuList] = React.useState([]);
   const [isLoaded, setLoaded] = React.useState(false);
   const portArr = []
 
   const handleChange = (event) => {
+
     setSelectedPort(event.target.value);
-    props.onChange(event.target.value);
+    // for each port in portList, find the port with the same value as event.target.value
+    // and set the port's isSelected property to true
+    ports.forEach(port => {
+      if (port.manufacturer === event.target.value) {
+        console.log("We have match, " + port.path)
+        props.onChange(port.path);
+      }
+    })
   };
  
   async function loadPorts(){
     const ports = await window.electronAPI.getPorts()
-    ports.forEach(port => {portArr.push(port.friendlyName); console.log(port)});
+    setPorts(ports)
+    ports.forEach(port => { 
+      // check if port.manufacturer is undefined 
+      if(port.manufacturer === undefined){
+        portArr.push(port.path)
+      }else{
+        portArr.push(port.manufacturer); 
+      }
+      console.log(port.path + "THIS IS IT")
+    });
     setPortList(portArr)
   }
+
+  
 
   if(!isLoaded)
   {
@@ -41,16 +62,12 @@ const DropdownCOM = (props) => {
           value={selectedPort}
           label="Ports"
           onChange={handleChange}
-          sx={{backgroundColor:"white",  borderRadius: 1}}
-        >
+          sx={{backgroundColor:"white",  borderRadius: 1}}>
+
         {portList.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-            >
-              {name}
-              </MenuItem>
+            <MenuItem key={name} value={name}>{name}</MenuItem>
           ))}
+
         </Select>
       </FormControl>
       <FormControl variant="filled" sx={{ m: 1, minWidth: 30 }}>

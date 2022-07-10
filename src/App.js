@@ -12,8 +12,8 @@ function App() {
   const [port, setPort] = React.useState('')
   async function hitEnter(e)
   {    
-    const regex = port.match(/\(([^)]+)\)/)[1]
-    await window.electronAPI.openPort(regex)
+    console.log("HIT ENTER " + port)
+    await window.electronAPI.openPort(port)
   }
 
 
