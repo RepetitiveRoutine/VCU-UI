@@ -10,6 +10,13 @@ import { Box, Typography, Paper, Button, TextField } from "@mui/material";
 function App() {
   // Port retrieved by Dropdown component from props
   const [port, setPort] = React.useState('')
+  async function hitEnter(e)
+  {    
+    const regex = port.match(/\(([^)]+)\)/)[1]
+    await window.electronAPI.openPort(regex)
+  }
+
+
   return (
     <div className="App">
       <header id="title"></header>
@@ -20,7 +27,7 @@ function App() {
         </p>
         <DropdownCOM onChange={(value) => setPort(value)} />
         <Link to="/ports">
-          <Button>Enter</Button>
+          <Button onClick={hitEnter}>Enter</Button>
         </Link>
       </header>
     </div>

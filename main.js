@@ -4,7 +4,8 @@ const isDev = require("electron-is-dev");
 const { SerialPort, ReadlineParser } = require('serialport')
 let installExtension, REACT_DEVELOPER_TOOLS
 
-const port = new SerialPort({ path: 'COM3', baudRate: 115200 })
+var port = null 
+
 var message = ""
 
 if (isDev) {
@@ -31,6 +32,10 @@ async function createWindow() {
     },
   });
 
+  ipcMain.on('dialog:openPort', async (event, com_path) => {
+    await openPort(com_path)
+  })
+  
   // and load the index.html of the app.
   win.loadFile("index.html");
   win.loadURL(
@@ -65,11 +70,11 @@ async function listSerialPorts() {
 }
 
 
-async function initialisePort()
+async function initialisePort(com_path)
 {
   port = new SerialPort({
     autoOpen: false,
-    path: '\\\\.\\COM3',
+    path: com_path,
     baudRate: 115200,
     parity: 'none',
     stopBits: 1,
@@ -81,17 +86,15 @@ async function initialisePort()
       console.log('Error opening port: ', err.message)
     }
   });
-
 }
 
-async function openPort(isopen)
+async function openPort(com_path)
 { 
   console.log("Returning port")
-  if(isopen == false)
-  {
-    await initialisePort()
-  }
-  return port
+  console.log("TEH COM PAT HIS " + com_path)
+  await initialisePort(com_path)
+  
+  // Port is global var
 }
 
 async function openCom()

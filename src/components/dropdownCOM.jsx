@@ -21,7 +21,7 @@ const DropdownCOM = (props) => {
  
   async function loadPorts(){
     const ports = await window.electronAPI.getPorts()
-    ports.forEach(port => {portArr.push(port.friendlyName); console.log(port.friendlyName)});
+    ports.forEach(port => {portArr.push(port.friendlyName); console.log(port)});
     setPortList(portArr)
   }
 
@@ -57,6 +57,6 @@ const DropdownCOM = (props) => {
       </FormControl>
     </div>
   );
-}
+} 
 
 export default DropdownCOM
