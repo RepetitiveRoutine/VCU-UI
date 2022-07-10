@@ -35,6 +35,10 @@ async function createWindow() {
   ipcMain.on('dialog:openPort', async (event, com_path) => {
     await openPort(com_path)
   })
+
+  ipcMain.on('dialog:sendMessage', (event, message) => {
+    sendMessage(message)
+  })
   
   // and load the index.html of the app.
   win.loadFile("index.html");
@@ -110,10 +114,10 @@ function logfun(msg)
   message = msg
 }
 
-function sendMessage()
+function sendMessage(message)
 {
-  port.write("tpcal")
-  console.log("tpcal sent")
+  port.write(message)
+  console.log(message + " sent")
 }
 
 // This method will be called when Electron has finished

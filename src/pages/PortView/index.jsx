@@ -1,6 +1,6 @@
 import { Box, Typography, Paper } from "@mui/material";
 import * as React from 'react';
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
 
 // Convert the incoming sensor data
@@ -34,10 +34,11 @@ function PortView() {
 
   const [port, setPort] = React.useState(" ");
   const [serialData, setDataArray] = React.useState({});
+  const [message, setMessage] = React.useState({});
   //create an async function that calls the electron api OpenPort
-  async function openPort() {
-    await window.electronAPI.sendMessage()
-    console.log("requesting to send tpcal")
+  async function sendMessage() {
+    await window.electronAPI.sendMessage(message)
+    console.log("requesting to send " + message)
   }
 
   useInterval(async () => {
@@ -61,7 +62,17 @@ function PortView() {
         <Typography variant="h4" component="div" gutterBottom>VCU UI</Typography>
         <p>{port}</p>
       </Box>
-      <Button variant="contained" color="primary" onClick={() => { openPort(); }}>tpcal</Button>
+      
+        <TextField align='center' justifyContent='center' id="outlined-basic" label="Enter VCU Command" variant="outlined" onChange={(event) => {setMessage(event.target.value)}} onKeyPress={(ev) => 
+        {
+          console.log(`Pressed keyCode ${ev.key}`);
+          if (ev.key === 'Enter') {
+            sendMessage(message)
+            ev.target.value = "" 
+            ev.preventDefault();
+        }
+        }}/>
+
 
         <Box justifyContent='center' align='center' bottom="0px" sx={{
           display: 'flex',

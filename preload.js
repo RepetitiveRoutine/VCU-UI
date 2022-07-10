@@ -4,6 +4,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   getPorts: () => ipcRenderer.invoke('dialog:getPorts'),
   openPort: (com_path) => ipcRenderer.send('dialog:openPort', com_path),
   openCom: () =>  ipcRenderer.invoke('dialog:openCom'),
-  sendMessage: () => ipcRenderer.invoke('dialog:sendMessage')
+  sendMessage: (message) => ipcRenderer.send('dialog:sendMessage', message)
 })
 
