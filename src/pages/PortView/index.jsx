@@ -2,7 +2,10 @@ import { Box, Typography, Paper } from "@mui/material";
 import * as React from 'react';
 import { Button, TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
-
+//import the Monitor file in the components folder 
+import { LineChart } from "../../components/LineChart";
+import { Line } from "react-chartjs-2";
+import Grid from '@mui/material/Grid';
 // Convert the incoming sensor data
 function float2int(value) {
   return value | 0;
@@ -37,7 +40,8 @@ function PortView() {
   const [message, setMessage] = React.useState({});
   //create an async function that calls the electron api OpenPort
   async function sendMessage() {
-    await window.electronAPI.sendMessage(message)
+    console.log("Message" + message.trim())
+    await window.electronAPI.sendMessage(message.trim())
     console.log("requesting to send " + message)
   }
 
@@ -56,13 +60,23 @@ function PortView() {
     setDataArray(dataStrFormat)
   }, 100) 
 
+  console.log("OK BOOMER")
   return (
     <div>
       <Box>
-        <Typography variant="h4" component="div" gutterBottom>VCU UI</Typography>
+        <Typography variant="h4" component="div" gutterBottom>VCU UI epic :P </Typography>
         <p>{port}</p>
       </Box>
-      
+
+      <Grid container spacing={2}>
+      <Grid item xs={6}>
+        <LineChart></LineChart>
+      </Grid>
+      <Grid item xs={6}>
+        <LineChart></LineChart>
+      </Grid>
+        </Grid>
+
         <TextField align='center' justifyContent='center' id="outlined-basic" label="Enter VCU Command" variant="outlined" onChange={(event) => {setMessage(event.target.value)}} onKeyPress={(ev) => 
         {
           console.log(`Pressed keyCode ${ev.key}`);

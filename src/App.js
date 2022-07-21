@@ -6,7 +6,6 @@ import DropdownCOM from './components/dropdownCOM';
 import { Link } from 'react-router-dom';
 import { Box, Typography, Paper, Button, TextField } from "@mui/material";
 
-
 function App() {
   // Port retrieved by Dropdown component from props
   const [port, setPort] = React.useState('')
@@ -16,9 +15,8 @@ function App() {
     await window.electronAPI.openPort(port)
   }
 
-
   return (
-    <div className="App">
+    <div className="App" id="canvas">
       <header id="title"></header>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" id="pepe" />
