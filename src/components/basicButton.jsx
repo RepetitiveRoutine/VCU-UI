@@ -3,8 +3,8 @@ import Button from '@mui/material/Button';
 
 
 
-export default function BasicButton() {
-  
+export default function BasicButton() 
+{
   const [text, setPorts] = React.useState("");
 
   async function buttonClicked(){
@@ -13,7 +13,6 @@ export default function BasicButton() {
     console.log(filePath[0].friendlyName)
     return "ok"
   }
-
 
   return (
      <Button variant="text" onClick={() => {buttonClicked();}  }>{text}</Button>

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Button, TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
 //import the Monitor file in the components folder 
-import { LineChart } from "../../components/LineChart";
+import LineChart from "../../components/LineChart";
 import { Line } from "react-chartjs-2";
 import Grid from '@mui/material/Grid';
 // Convert the incoming sensor data
@@ -64,16 +64,15 @@ function PortView() {
   return (
     <div>
       <Box>
-        <Typography variant="h4" component="div" gutterBottom>VCU UI epic :P </Typography>
-        <p>{port}</p>
+        <Typography variant="h4" component="div" gutterBottom>VCU UI 😎</Typography>
       </Box>
 
       <Grid container spacing={2}>
       <Grid item xs={6}>
-        <LineChart></LineChart>
+        <LineChart colour="#ffa600" name="BPS" ></LineChart>
       </Grid>
       <Grid item xs={6}>
-        <LineChart></LineChart>
+        <LineChart colour="#a05195" name="APPS"></LineChart>
       </Grid>
         </Grid>
 
@@ -86,7 +85,6 @@ function PortView() {
             ev.preventDefault();
         }
         }}/>
-
 
         <Box justifyContent='center' align='center' bottom="0px" sx={{
           display: 'flex',

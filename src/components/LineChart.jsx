@@ -65,8 +65,8 @@ const datawow = {
   ],
 };
 
-
-export function useInterval(callback, delay) {
+export function useInterval(callback, delay) 
+{
   const savedCallback = useRef()
   useEffect(() => {
     savedCallback.current = callback;
@@ -86,17 +86,19 @@ export function useInterval(callback, delay) {
   }, [callback, delay])
 }
 
-export function LineChart() 
+const LineChart = (props) => 
 {
-  
+  console.log(props.colour + " THIS IS PROPS")  
   const [thedata, setData] = useState(datawow);
 
-  useInterval(async () => {
+  useInterval(async () => 
+  {
     console.log("weee procs");
 
     var datasetty = thedata.datasets[0].data
     // if the length of datasetty is less than 12, add a new number to the end of the array
-    if (datasetty.length < 11) {
+    if (datasetty.length < 11) 
+    {
       console.log("condition met")
       datasetty.push(faker.random.number({ min: 1, max: 10 }))
       console.log(datasetty)
@@ -113,7 +115,7 @@ export function LineChart()
         {
           label: 'Dataset 1',
           data: datasetty,
-          borderColor: 'rgb(255, 99, 132)',
+          borderColor: props.colour,
           backgroundColor: 'rgba(255, 99, 132, 0.5)',
         },
       ],
@@ -122,6 +124,6 @@ export function LineChart()
   }, 100)
 
   return <Line options={options} data={thedata} />;
-
 }
 
+export default LineChart
