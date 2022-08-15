@@ -1,6 +1,6 @@
 {
   "author": "br3nr",
-  "description": "😎",
+  "description": "Example heading test #heading  \n ##heading 2",
   "name": "vcui",
   "version": "0.1.1",
   "build": {
