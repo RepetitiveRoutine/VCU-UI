@@ -8,11 +8,7 @@
     "target": "NSIS",
     "mac": {
       "category": "your.app.category.type"
-    },
-    "linux": {
-			"target": ["AppImage"],
-			"category": "Office"
-		}
+    }
   },
   "main": "public/electron.js",
   "homepage": "./",
@@ -41,8 +37,7 @@
     "dev": "concurrently -k \"cross-env BROWSER=none yarn start\" \"yarn:electron\"",
     "electron": "wait-on tcp:3000 && electron-forge start",
     "start": "react-scripts start",
-    "build": "electron-builder --mac --windows --linux",
-		"release": "electron-builder --mac --windows --linux --publish always",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "package": "react-scripts build && electron-forge package",

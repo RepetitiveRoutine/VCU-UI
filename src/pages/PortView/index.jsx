@@ -1,10 +1,9 @@
 import { Box, Typography, Paper } from "@mui/material";
 import * as React from 'react';
-import { Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
 //import the Monitor file in the components folder 
 import LineChart from "../../components/LineChart";
-import { Line } from "react-chartjs-2";
 import Grid from '@mui/material/Grid';
 // Convert the incoming sensor data
 function float2int(value) {
@@ -51,6 +50,7 @@ function PortView() {
     setPort(message)
     var parsedMsg = message.split(" ")
     console.log(parsedMsg)
+    console.log(port)
     let dataStrFormat = {
       "BP": float2int(parsedMsg[1]),
       "APPS1": float2int(parsedMsg[3]),

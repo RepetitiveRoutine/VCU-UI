@@ -1,10 +1,7 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Button from '@mui/material/Button';
 
 
 
@@ -12,7 +9,6 @@ const DropdownCOM = (props) => {
   const [selectedPort, setSelectedPort] = React.useState('');
   const [ports, setPorts] = React.useState([]);
   const [portList, setPortList] = React.useState([]);
-  const [manuList, setManuList] = React.useState([]);
   const [isLoaded, setLoaded] = React.useState(false);
   const portArr = []
 

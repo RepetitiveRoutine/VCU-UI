@@ -1,10 +1,9 @@
 import logo from './logo.svg';
 import './css/App.css';
 import * as React from 'react';
-import BasicButton from './components/basicButton';
 import DropdownCOM from './components/dropdownCOM';
 import { Link } from 'react-router-dom';
-import { Box, Typography, Paper, Button, TextField } from "@mui/material";
+import { Button } from "@mui/material";
 
 function App() {
   // Port retrieved by Dropdown component from props
