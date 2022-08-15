@@ -3,7 +3,6 @@
   "description": "😎",
   "name": "uhhhh",
   "version": "0.1.0",
-
   "build": {
     "appId": "your.id",
     "target": "NSIS",
@@ -11,7 +10,6 @@
       "category": "your.app.category.type"
     }
   },
-  
   "main": "public/electron.js",
   "homepage": "./",
   "private": true,
