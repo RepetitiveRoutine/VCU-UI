@@ -3,7 +3,6 @@
   "description": "😎",
   "name": "vcui",
   "version": "0.1.0",
-
   "build": {
     "appId": "your.id",
     "target": "NSIS",
