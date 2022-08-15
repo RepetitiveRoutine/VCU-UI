@@ -1,8 +1,9 @@
 {
   "author": "Max Brenner",
   "description": "😎",
-  "name": "uhhhh",
+  "name": "VCUI",
   "version": "0.1.0",
+
   "build": {
     "appId": "your.id",
     "target": "NSIS",
