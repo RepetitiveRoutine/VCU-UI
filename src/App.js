@@ -1,33 +1,52 @@
-import logo from './cmt_logo.svg';
+import logo from './combined_logo.svg';
 import './css/App.css';
 import * as React from 'react';
 import DropdownCOM from './components/dropdownCOM';
 import { Link } from 'react-router-dom';
 import { Button } from "@mui/material";
+import ToggleDarkMode from './components/ToggleDarkMode'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import NavBar from './components/NavBar'
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+const lightTheme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
 
 function App() {
   // Port retrieved by Dropdown component from props
   const [port, setPort] = React.useState('')
-  async function hitEnter(e)
-  {    
+  async function hitEnter(e) {
     console.log("HIT ENTER " + port)
     await window.electronAPI.openPort(port)
   }
 
   return (
-    <div className="App" id="canvas">
-      <header id="title"></header>
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" id="pepe" style={{ width: 300 }} />
-        <p id="cool">
-          Which port do u want?
-        </p>
-        <DropdownCOM onChange={(value) => setPort(value)} />
-        <Link to="/ports">
-          <Button onClick={hitEnter}>Enter</Button>
-        </Link>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <CssBaseline />
+      <NavBar/>
+
+      <div className="App" id="canvas">
+        <header id="title"></header>
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" id="pepe" style={{ width: 300 }} />
+          <p id="cool">
+            Which port do u want?
+          </p>
+          <DropdownCOM onChange={(value) => setPort(value)} />
+          <Link to="/ports" state={{  them:darkTheme }}>
+            <Button onClick={hitEnter}>Enter</Button>
+          </Link>
+        </header>
+      </div>
+    </ThemeProvider>
   );
 }
 

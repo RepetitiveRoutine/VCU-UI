@@ -51,14 +51,14 @@ const DropdownCOM = (props) => {
 
   return (
     <div>
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 120, color:"white" }}>
+    <FormControl variant="standard" sx={{ m: 1, minWidth: 200, maxWidth: 200, color:"white" }}>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectedPort}
           label="Ports"
           onChange={handleChange}
-          sx={{backgroundColor:"white",  borderRadius: 1}}>
+          sx={{borderRadius: 1}}>
 
         {portList.map((name) => (
             <MenuItem key={name} value={name}>{name}</MenuItem>
