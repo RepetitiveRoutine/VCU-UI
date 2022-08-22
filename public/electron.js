@@ -1,11 +1,11 @@
 const path = require("path");
 
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog, ipcRenderer } = require("electron");
 const isDev = require("electron-is-dev");
 const { SerialPort, ReadlineParser } = require('serialport')
 let installExtension, REACT_DEVELOPER_TOOLS
 var port = null 
-var message = ""
+let window;
 
 if (require("electron-squirrel-startup")) {
   app.quit();
@@ -15,8 +15,9 @@ function createWindow() {
   // Create the browser window.
 
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 900,
+    height: 650,
+    frame: false,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
@@ -33,6 +34,8 @@ function createWindow() {
     sendMessage(message)
   })
 
+
+
   // and load the index.html of the app.
   // win.loadFile("index.html");
   
@@ -48,6 +51,8 @@ function createWindow() {
   if (isDev) {
     win.webContents.openDevTools({ mode: "detach" });
   }
+
+  return win
 }
 
 
@@ -118,6 +123,27 @@ function sendMessage(message)
 }
 
 
+function closeApp()
+{
+  window.close()  
+}
+
+function minimizeApp()
+{
+  window.minimize()
+}
+
+function maximizeApp()
+{
+  if(window.isMaximized())
+  {
+    window.unmaximize()
+  }
+  else{
+    window.maximize()
+  }
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -125,7 +151,7 @@ function sendMessage(message)
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow();
+  window = createWindow();
   console.log("here")
 
   // IPC Two-way
@@ -136,6 +162,10 @@ app.whenReady().then(() => {
   ipcMain.handle('dialog:sendMessage', sendMessage)
   ipcMain.handle('dialog:openPort', openPort)
   ipcMain.handle('dialog:openCom', openCom)
+  ipcMain.handle('dialog:closeApp', closeApp)
+  ipcMain.handle('dialog:minimizeApp', minimizeApp)
+  ipcMain.handle('dialog:maximizeApp', maximizeApp)
+
 
   if (isDev) {
     installExtension(REACT_DEVELOPER_TOOLS)
