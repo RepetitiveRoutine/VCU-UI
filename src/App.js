@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+import logo from './cmt_logo.svg';
 import './css/App.css';
 import * as React from 'react';
 import DropdownCOM from './components/dropdownCOM';
@@ -18,7 +18,7 @@ function App() {
     <div className="App" id="canvas">
       <header id="title"></header>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" id="pepe" />
+        <img src={logo} className="App-logo" alt="logo" id="pepe" style={{ width: 300 }} />
         <p id="cool">
           Which port do u want?
         </p>
