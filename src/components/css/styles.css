@@ -6,3 +6,10 @@
 .drag {
   -webkit-app-region: drag;
 }
+/* LoginComponent.css */
+
+/* Since Material UI uses the modern flexbox implementation, we can use justify-content and align-items */
+.centerMyForm {
+  justify-content: center;
+  align-items: center;
+}

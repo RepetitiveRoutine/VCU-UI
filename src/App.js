@@ -4,6 +4,7 @@ import * as React from 'react';
 import DropdownCOM from './components/dropdownCOM';
 import { Link } from 'react-router-dom';
 import { Button } from "@mui/material";
+import Grid from '@mui/material/Grid';
 import ToggleDarkMode from './components/ToggleDarkMode'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -37,13 +38,20 @@ function App() {
         <header id="title"></header>
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" id="pepe" style={{ width: 300 }} />
-          <p id="cool">
-            Which port do u want?
-          </p>
+          <p></p>
+
+          <Grid container spacing={2} justifyContent="center">
+            <Grid>
           <DropdownCOM onChange={(value) => setPort(value)} />
-          <Link to="/ports" state={{  them:darkTheme }}>
+          </Grid>
+          <Grid>
+         
+          <Link to="/ports">
             <Button onClick={hitEnter}>Enter</Button>
           </Link>
+          </Grid>
+          </Grid>
+
         </header>
       </div>
     </ThemeProvider>
@@ -51,3 +59,4 @@ function App() {
 }
 
 export default App;
+

@@ -2,8 +2,8 @@ import * as React from 'react';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-
-
+import "../../src/css/App.css"
+import Box from '@mui/material/Box';
 
 const DropdownCOM = (props) => {
   const [selectedPort, setSelectedPort] = React.useState('');
@@ -50,8 +50,8 @@ const DropdownCOM = (props) => {
   console.log(selectedPort)
 
   return (
-    <div>
-    <FormControl variant="standard" sx={{ m: 1, minWidth: 200, maxWidth: 200, color:"white" }}>
+    <div className="App" id="canvas">
+    <FormControl variant="standard" size="medium" sx={{ minWidth: 200, maxWidth: 200, color:"white"}}>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
