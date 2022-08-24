@@ -72,10 +72,7 @@ function PortView() {
 
       <Grid container spacing={2}>
       <Grid item xs={6}>
-        <LineChart colour="#ffa600" name="BPS" ></LineChart>
-      </Grid>
-      <Grid item xs={6}>
-        <LineChart colour="#a05195" name="APPS"></LineChart>
+        <LineChart colour="#ffa600" value="APPS1" name="BPS" ></LineChart>
       </Grid>
         </Grid>
 

@@ -1,5 +1,5 @@
 const path = require("path");
-
+var electron = require("electron");
 const { app, BrowserWindow, ipcMain, dialog, ipcRenderer } = require("electron");
 const isDev = require("electron-is-dev");
 const { SerialPort, ReadlineParser } = require('serialport')
@@ -14,7 +14,7 @@ if (require("electron-squirrel-startup")) {
 function createWindow() {
   // Create the browser window.
 
-  const win = new BrowserWindow({
+  const win = new electron.BrowserWindow({
     width: 900,
     height: 650,
     frame: false,
@@ -125,8 +125,9 @@ function sendMessage(message)
 
 function closeApp()
 {
-  window.close()  
+  window.close()
 }
+
 
 function minimizeApp()
 {
@@ -152,8 +153,7 @@ function maximizeApp()
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   window = createWindow();
-  console.log("here")
-
+  
   // IPC Two-way
   listSerialPorts()
   //openPort(false)
@@ -178,8 +178,13 @@ app.whenReady().then(() => {
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
+// Quit when all windows are closed.
 app.on("window-all-closed", () => {
+  // On macOS it is common for applications and their menu bar
+  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {
+    app.quit();
+  } else {
     app.quit();
   }
 });

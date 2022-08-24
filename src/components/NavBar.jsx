@@ -27,7 +27,7 @@ export default function NavBar() {
   return (
     <div style={{"WebkitAppRegion": "drag"}}>
     <Box  sx={{ flexGrow: 1 }}>
-      <AppBar position="static" hei>
+      <AppBar position="fixed">
         <Toolbar variant="dense">
           
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

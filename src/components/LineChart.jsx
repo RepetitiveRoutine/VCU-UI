@@ -1,15 +1,6 @@
 import React from 'react';
 import { useEffect, useState, useRef } from 'react';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend,} from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import faker from 'faker';
 
@@ -23,28 +14,36 @@ ChartJS.register(
   Legend
 );
 
+
 export const options = {
   responsive: true,
-  plugins: 
-  {
-    legend: 
-    {
-      position: 'top',
+    interaction: {
+      mode: 'index',
+      intersect: false,
     },
-    title: 
-    {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
-  },
   animations: 
   {
     animation:false
-  }
+  },
+  scales: {
+    y: {
+      type: 'linear',
+      display: true,
+      position: 'left',
+    },
+    y1: {
+      type: 'linear',
+      display: true,
+      position: 'right',
+      // grid line settings
+      grid: {
+        drawOnChartArea: false, // only want the grid lines for one axis to show up
+      },
+    },
+}
 }
 
 const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-
 
 const datawow = {
   labels,
@@ -86,44 +85,83 @@ export function useInterval(callback, delay)
   }, [callback, delay])
 }
 
+function float2int(value) {
+  return value | 0;
+}
+
 const LineChart = (props) => 
 {
+  const [port, setPort] = React.useState(" ");
+  const [serialData, setDataArray] = React.useState({});
   console.log(props.colour + " THIS IS PROPS")  
-  const [thedata, setData] = useState(datawow);
+  const [apps1Data, setApps1Data] = useState(datawow);
+  const [apps2Data, setApps2Data] = useState(datawow);
 
   useInterval(async () => 
   {
-    console.log("weee procs");
+    
+    console.log("Interval proc");
+    const message = await window.electronAPI.openCom()
+    setPort(message)
+    var parsedMsg = message.split(" ")
+    console.log(parsedMsg)
+    console.log(port)
+    let dataStrFormat = {
+      "BP": float2int(parsedMsg[1]),
+      "APPS1": float2int(parsedMsg[3]),
+      "APPS2": float2int(parsedMsg[5]),
+      "TPS": float2int(parsedMsg[7])
+    }
+    setDataArray(dataStrFormat)
 
-    var datasetty = thedata.datasets[0].data
+    var apps1 = apps1Data.datasets[0].data
+    console.log(apps1)
+    var apps2 = apps2Data.datasets[0].data
+    console.log(apps2)
     // if the length of datasetty is less than 12, add a new number to the end of the array
-    if (datasetty.length < 11) 
+    if (apps1.length < 11) 
     {
-      console.log("condition met")
-      datasetty.push(faker.random.number({ min: 1, max: 10 }))
-      console.log(datasetty)
+      apps1.push(dataStrFormat.APPS1)
+      apps2.push(dataStrFormat.APPS2)
     }
     else 
     {
-      datasetty.shift()
-      datasetty.push(faker.random.number({ min: 1, max: 10 }))
+      apps1.shift()
+      apps1.push(dataStrFormat.APPS1)
+      apps2.push(dataStrFormat.APPS2)
     }
 
-    const datalist = {
+    
+    const datalist1 = {
       labels,
       datasets: [
         {
           label: 'Dataset 1',
-          data: datasetty,
+          data: apps1,
           borderColor: props.colour,
           backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
+          yAxisID: 'y',
+        }
       ],
     };
-    setData(datalist);
+
+    const datalist2 = {
+      labels,
+      datasets: [
+        {
+          label: 'Dataset 2',
+          data: apps2,
+          borderColor: "red",
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          yAxisID: 'y1',
+        }
+      ],
+    };
+    setApps1Data(datalist1);
+    setApps2Data(datalist2);
   }, 100)
 
-  return <Line options={options} data={thedata} />;
+  return <Line options={options} data={apps1Data} />;
 }
 
 export default LineChart
