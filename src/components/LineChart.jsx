@@ -24,18 +24,14 @@ ChartJS.register(
 );
 
 export const options = {
-  responsive: true,
+  responsive: false,
   plugins: 
   {
     legend: 
     {
       position: 'top',
     },
-    title: 
-    {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
+    
   },
   animations: 
   {
@@ -133,21 +129,21 @@ const LineChart = (props) =>
         {
           label: 'Dataset 1',
           data: datasetty,
-          borderColor: props.colour,
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: '#00e676',
+          backgroundColor: '#33eb91',
         },
         {
           label: 'Dataset 2',
           data: datasetty2,
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          borderColor: '#d500f9',
+          backgroundColor:'#dd33fa' ,
         },
       ],
     };
     setData(datalist);
   }, 100)
 
-  return <Line options={options} data={thedata} />;
+  return <Line options={options} data={thedata} width={600} height={400} />;
 }
 
 export default LineChart

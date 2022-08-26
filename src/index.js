@@ -6,13 +6,36 @@ import reportWebVitals from './reportWebVitals';
 import {HashRouter, Routes, Route} from "react-router-dom";
 import PortView from "./pages/PortView";
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>
       <Routes>
-        <Route path="/" element={<App />}/>
+       
+     
+
+       <Route path="/" element={
+       
+       <ThemeProvider theme={darkTheme}>
+       <CssBaseline />
+       <App />
+
+       </ThemeProvider>
+
+
+
+}/>
         <Route path="ports" element= {<PortView />}/>
+
       </Routes>
     </HashRouter>
 );
