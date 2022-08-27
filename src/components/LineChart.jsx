@@ -1,6 +1,15 @@
 import React from 'react';
 import { useEffect, useState, useRef } from 'react';
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend,} from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import faker from 'faker';
 
@@ -14,36 +23,24 @@ ChartJS.register(
   Legend
 );
 
-
 export const options = {
-  responsive: true,
-    interaction: {
-      mode: 'index',
-      intersect: false,
+  responsive: false,
+  plugins: 
+  {
+    legend: 
+    {
+      position: 'top',
     },
+    
+  },
   animations: 
   {
     animation:false
-  },
-  scales: {
-    y: {
-      type: 'linear',
-      display: true,
-      position: 'left',
-    },
-    y1: {
-      type: 'linear',
-      display: true,
-      position: 'right',
-      // grid line settings
-      grid: {
-        drawOnChartArea: false, // only want the grid lines for one axis to show up
-      },
-    },
-}
+  }
 }
 
 const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+
 
 const datawow = {
   labels,
@@ -61,8 +58,22 @@ const datawow = {
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
+    {
+      label: 'Dataset 2',
+      data: [
+        faker.random.number({ min: 1, max: 10 }),
+        faker.random.number({ min: 1, max: 10 }),
+        faker.random.number({ min: 1, max: 10 }),
+        faker.random.number({ min: 1, max: 10 }),
+        faker.random.number({ min: 1, max: 10 }),
+      ],
+      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: 'rgba(255, 99, 132, 0.5)'
+    },
   ],
 };
+
+
 
 export function useInterval(callback, delay) 
 {
@@ -85,83 +96,54 @@ export function useInterval(callback, delay)
   }, [callback, delay])
 }
 
-function float2int(value) {
-  return value | 0;
-}
-
 const LineChart = (props) => 
 {
-  const [port, setPort] = React.useState(" ");
-  const [serialData, setDataArray] = React.useState({});
   console.log(props.colour + " THIS IS PROPS")  
-  const [apps1Data, setApps1Data] = useState(datawow);
-  const [apps2Data, setApps2Data] = useState(datawow);
+  const [thedata, setData] = useState(datawow);
 
   useInterval(async () => 
   {
-    
-    console.log("Interval proc");
-    const message = await window.electronAPI.openCom()
-    setPort(message)
-    var parsedMsg = message.split(" ")
-    console.log(parsedMsg)
-    console.log(port)
-    let dataStrFormat = {
-      "BP": float2int(parsedMsg[1]),
-      "APPS1": float2int(parsedMsg[3]),
-      "APPS2": float2int(parsedMsg[5]),
-      "TPS": float2int(parsedMsg[7])
-    }
-    setDataArray(dataStrFormat)
+    console.log("weee procs");
 
-    var apps1 = apps1Data.datasets[0].data
-    console.log(apps1)
-    var apps2 = apps2Data.datasets[0].data
-    console.log(apps2)
+    var datasetty = thedata.datasets[0].data
+    var datasetty2 = thedata.datasets[1].data
     // if the length of datasetty is less than 12, add a new number to the end of the array
-    if (apps1.length < 11) 
+    if (datasetty.length < 11) 
     {
-      apps1.push(dataStrFormat.APPS1)
-      apps2.push(dataStrFormat.APPS2)
+      console.log("condition met")
+      datasetty.push(faker.random.number({ min: 1, max: 100 }))
+      datasetty2.push(faker.random.number({ min: 1, max: 10 }))
+      console.log(datasetty)
     }
     else 
     {
-      apps1.shift()
-      apps1.push(dataStrFormat.APPS1)
-      apps2.push(dataStrFormat.APPS2)
+      datasetty.shift()
+      datasetty.push(faker.random.number({ min: 1, max: 100 }))
+      datasetty2.shift()
+      datasetty2.push(faker.random.number({ min: 1, max: 10 }))
     }
 
-    
-    const datalist1 = {
+    const datalist = {
       labels,
       datasets: [
         {
           label: 'Dataset 1',
-          data: apps1,
-          borderColor: props.colour,
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          yAxisID: 'y',
-        }
-      ],
-    };
-
-    const datalist2 = {
-      labels,
-      datasets: [
+          data: datasetty,
+          borderColor: '#00e676',
+          backgroundColor: '#33eb91',
+        },
         {
           label: 'Dataset 2',
-          data: apps2,
-          borderColor: "red",
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          yAxisID: 'y1',
-        }
+          data: datasetty2,
+          borderColor: '#d500f9',
+          backgroundColor:'#dd33fa' ,
+        },
       ],
     };
-    setApps1Data(datalist1);
-    setApps2Data(datalist2);
+    setData(datalist);
   }, 100)
 
-  return <Line options={options} data={apps1Data} />;
+  return <Line options={options} data={thedata} width={600} height={400} />;
 }
 
 export default LineChart
