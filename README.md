@@ -7,3 +7,5 @@ yarn build
 yarn dist
 
 
+
+git fetch --tags -f
