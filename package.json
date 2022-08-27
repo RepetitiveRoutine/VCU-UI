@@ -2,7 +2,7 @@
   "author": "br3nr",
   "description": "Example heading test #heading  \n ##heading 2",
   "name": "vcui",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "build": {
     "appId": "your.id",
     "target": "NSIS",
@@ -16,7 +16,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@mui/icons-material": "^5.8.4",
+    "@mui/icons-material": "^5.10.2",
     "@mui/material": "^5.10.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.3.0",
