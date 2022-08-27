@@ -15,8 +15,6 @@ const darkTheme = createTheme({
   },
 });
 
-
-
 function App() {
   // Port retrieved by Dropdown component from props
   const [port, setPort] = React.useState('')
