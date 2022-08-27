@@ -25,6 +25,20 @@ ChartJS.register(
 
 export const options = {
   responsive: false,
+  scales:
+  {
+    y:{
+      min: -15,
+      max: 700,
+      stepSize:5,
+    },
+  
+  },
+  elements: {
+    point:{
+        radius: 0
+    }
+},
   plugins: 
   {
     legend: 
@@ -39,7 +53,7 @@ export const options = {
   }
 }
 
-const labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+const labels = Array.from(Array(10).keys())
 
 
 const datawow = {
@@ -49,11 +63,7 @@ const datawow = {
       label: 'Dataset 1',
       //map the numbers 1 - 10 to the labels, but make sure to add a random number to the end of the array
       data: [
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
+        
       ],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -61,11 +71,7 @@ const datawow = {
     {
       label: 'Dataset 2',
       data: [
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
-        faker.random.number({ min: 1, max: 10 }),
+        
       ],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)'
@@ -95,15 +101,30 @@ export function useInterval(callback, delay)
     }
   }, [callback, delay])
 }
+// Convert the incoming sensor data
+function float2int(value) {
+  return value | 0;
+}
 
 const LineChart = (props) => 
 {
   console.log(props.colour + " THIS IS PROPS")  
   const [thedata, setData] = useState(datawow);
 
+  
+
   useInterval(async () => 
   {
-    console.log("weee procs");
+
+    const message = await window.electronAPI.openCom()
+    var parsedMsg = message.split(" ")
+    let dataStrFormat = {
+      "BP": float2int(parsedMsg[1]),
+      "APPS1": float2int(parsedMsg[3]),
+      "APPS2": float2int(parsedMsg[5]),
+      "TPS": float2int(parsedMsg[7])
+    }
+
 
     var datasetty = thedata.datasets[0].data
     var datasetty2 = thedata.datasets[1].data
@@ -111,29 +132,29 @@ const LineChart = (props) =>
     if (datasetty.length < 11) 
     {
       console.log("condition met")
-      datasetty.push(faker.random.number({ min: 1, max: 100 }))
-      datasetty2.push(faker.random.number({ min: 1, max: 10 }))
+      datasetty.push(dataStrFormat.APPS1)
+      datasetty2.push(dataStrFormat.APPS2)
       console.log(datasetty)
     }
     else 
     {
       datasetty.shift()
-      datasetty.push(faker.random.number({ min: 1, max: 100 }))
+      datasetty.push(dataStrFormat.APPS1)
       datasetty2.shift()
-      datasetty2.push(faker.random.number({ min: 1, max: 10 }))
+      datasetty2.push(dataStrFormat.APPS2)
     }
 
     const datalist = {
       labels,
       datasets: [
         {
-          label: 'Dataset 1',
+          label: 'APPS1',
           data: datasetty,
           borderColor: '#00e676',
           backgroundColor: '#33eb91',
         },
         {
-          label: 'Dataset 2',
+          label: 'APPS2',
           data: datasetty2,
           borderColor: '#d500f9',
           backgroundColor:'#dd33fa' ,
@@ -141,7 +162,7 @@ const LineChart = (props) =>
       ],
     };
     setData(datalist);
-  }, 100)
+  },25)
 
   return <Line options={options} data={thedata} width={600} height={400} />;
 }
