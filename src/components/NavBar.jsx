@@ -4,13 +4,10 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import MinimizeIcon from '@mui/icons-material/Minimize';
 import RemoveIcon from '@mui/icons-material/Remove';
-import styles from "./css/styles.css"
 import CropSquareIcon from '@mui/icons-material/CropSquare';
+
 export default function NavBar() {
 
   async function minimize(e) {

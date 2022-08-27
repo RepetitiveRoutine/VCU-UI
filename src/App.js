@@ -5,7 +5,6 @@ import DropdownCOM from './components/dropdownCOM';
 import { Link } from 'react-router-dom';
 import { Button } from "@mui/material";
 import Grid from '@mui/material/Grid';
-import ToggleDarkMode from './components/ToggleDarkMode'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import NavBar from './components/NavBar'
@@ -16,11 +15,7 @@ const darkTheme = createTheme({
   },
 });
 
-const lightTheme = createTheme({
-  palette: {
-    mode: 'light',
-  },
-});
+
 
 function App() {
   // Port retrieved by Dropdown component from props

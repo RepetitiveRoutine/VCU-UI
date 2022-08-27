@@ -20,19 +20,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <HashRouter>
       <Routes>
-       
-     
-
+    
        <Route path="/" element={
-       
-       <ThemeProvider theme={darkTheme}>
-       <CssBaseline />
        <App />
-
-       </ThemeProvider>
-
-
-
 }/>
         <Route path="ports" element= {<PortView />}/>
 

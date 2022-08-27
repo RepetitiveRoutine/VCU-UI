@@ -6,7 +6,6 @@ import NavBar from "../../components/NavBar";
 
 //import the Monitor file in the components folder 
 import LineChart from "../../components/LineChart";
-import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
@@ -135,7 +134,7 @@ function PortView() {
           </Box>
 
           <Box>
-            <TextField align='center' justifyContent='center' id="outlined-basic" label="Enter VCU Command" variant="outlined" onChange={(event) => { setMessage(event.target.value) }} onKeyPress={(ev) => {
+            <TextField align='center' id="outlined-basic" label="Enter VCU Command" variant="outlined" onChange={(event) => { setMessage(event.target.value) }} onKeyPress={(ev) => {
               console.log(`Pressed keyCode ${ev.key}`);
               if (ev.key === 'Enter') {
                 sendMessage(message)

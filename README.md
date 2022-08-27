@@ -17,5 +17,5 @@ git push && git push --tags
 git fetch --tags -f
 
 
-
+git tag -d tag-name
 git push --delete origin tagname

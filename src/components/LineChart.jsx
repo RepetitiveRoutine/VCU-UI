@@ -11,7 +11,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import faker from 'faker';
 
 ChartJS.register(
   CategoryScale,
@@ -162,7 +161,7 @@ const LineChart = (props) =>
       ],
     };
     setData(datalist);
-  },25)
+  }, 25);
 
   return <Line options={options} data={thedata} width={600} height={400} />;
 }

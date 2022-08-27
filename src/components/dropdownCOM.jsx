@@ -3,7 +3,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import "../../src/css/App.css"
-import Box from '@mui/material/Box';
 
 const DropdownCOM = (props) => {
   const [selectedPort, setSelectedPort] = React.useState('');
