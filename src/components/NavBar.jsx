@@ -22,20 +22,21 @@ export default function NavBar() {
     await window.electronAPI.closeApp()
   }
   return (
-    <div style={{"WebkitAppRegion": "drag"}}>
-    <Box  sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed">
+    <Box  sx={{ flexGrow: 1 }} style={{"WebkitAppRegion": "drag"}}>
+      <AppBar position="static">
+
         <Toolbar variant="dense">
           
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             
           </Typography>
-          <Button color="inherit" onClick={minimize}><RemoveIcon/></Button>
-          <Button color="inherit" onClick={maximize}><CropSquareIcon/></Button>
-          <Button color="inherit" onClick={exit}><CloseIcon/></Button>
+          
         </Toolbar>
+        
       </AppBar>
+      <Button color="inherit" onClick={minimize}><RemoveIcon/></Button>
+      <Button color="inherit" onClick={maximize}><CropSquareIcon/></Button>
+    <Button color="inherit" onClick={exit}><CloseIcon/></Button>
     </Box>
-    </div>
   );
 }

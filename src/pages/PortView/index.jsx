@@ -80,7 +80,6 @@ function PortView() {
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
 
-          <NavBar/>
 
 
           <div align='center'>

@@ -17,7 +17,8 @@ function createWindow() {
   const win = new electron.BrowserWindow({
     width: 900,
     height: 650,
-    frame: false,
+    frame: true,
+    removeMenu: true,
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
@@ -25,7 +26,7 @@ function createWindow() {
       preload: path.join(__dirname, '/preload.js')
     }
   }); 
-
+  win.removeMenu(true)
   ipcMain.on('dialog:openPort', async (event, com_path) => {
     await openPort(com_path)
   })

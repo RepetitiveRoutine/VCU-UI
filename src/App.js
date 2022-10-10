@@ -26,7 +26,6 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <NavBar/>
 
       <div className="App" id="canvas">
         <header id="title"></header>

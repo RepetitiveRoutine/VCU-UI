@@ -23,26 +23,24 @@ const DropdownCOM = (props) => {
       }
     })
   };
- 
-  async function loadPorts(){
+
+  async function loadPorts() {
     const ports = await window.electronAPI.getPorts()
     setPorts(ports)
-    ports.forEach(port => { 
+    ports.forEach(port => {
       // check if port.manufacturer is undefined 
-      if(port.manufacturer === undefined){
+      if (port.manufacturer === undefined) {
         portArr.push(port.path)
-      }else{
-        portArr.push(port.manufacturer); 
+      } else {
+        portArr.push(port.manufacturer);
       }
       console.log(port.path + "THIS IS IT")
     });
     setPortList(portArr)
   }
 
-  
 
-  if(!isLoaded)
-  {
+  if (!isLoaded) {
     loadPorts()
     setLoaded(true)
   }
@@ -50,16 +48,17 @@ const DropdownCOM = (props) => {
 
   return (
     <div className="App" id="canvas">
-    <FormControl variant="standard" size="medium" sx={{ minWidth: 200, maxWidth: 200, color:"white"}}>
+      <FormControl variant="standard" size="medium" sx={{ minWidth: 200, maxWidth: 200, color: "white" }}>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={selectedPort}
           label="Ports"
           onChange={handleChange}
-          sx={{borderRadius: 1}}>
+          onClick={loadPorts}
+          sx={{ borderRadius: 1 }}>
 
-        {portList.map((name) => (
+          {portList.map((name) => (
             <MenuItem key={name} value={name}>{name}</MenuItem>
           ))}
 
@@ -69,6 +68,6 @@ const DropdownCOM = (props) => {
       </FormControl>
     </div>
   );
-} 
+}
 
 export default DropdownCOM
