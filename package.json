@@ -2,7 +2,7 @@
   "author": "br3nr",
   "description": "Example heading test #heading  \n ##heading 2",
   "name": "vcui",
-  "version": "0.1.5",
+  "version": "0.1.7",
   "build": {
     "appId": "your.id",
     "target": "NSIS",

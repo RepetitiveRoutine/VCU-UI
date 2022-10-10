@@ -2,7 +2,6 @@ import { Box, Typography, Paper } from "@mui/material";
 import * as React from 'react';
 import { TextField } from "@mui/material";
 import { useEffect, useRef } from "react";
-import NavBar from "../../components/NavBar";
 
 //import the Monitor file in the components folder 
 import LineChart from "../../components/LineChart";

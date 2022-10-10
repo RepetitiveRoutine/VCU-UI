@@ -7,7 +7,6 @@ import { Button } from "@mui/material";
 import Grid from '@mui/material/Grid';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import NavBar from './components/NavBar'
 
 const darkTheme = createTheme({
   palette: {
